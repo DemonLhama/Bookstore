@@ -3,6 +3,8 @@ from flask import Flask
 from bookstore import config
 from bookstore import db
 from bookstore import cli
+from bookstore import site
+from flask_bootstrap import Bootstrap
 
 
 def create_app():
@@ -10,4 +12,6 @@ def create_app():
     config.init_app(app)
     db.init_app(app)
     cli.init_app(app)
+    site.init_app(app)
+    bootstrap = Bootstrap(app)
     return app
