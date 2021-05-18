@@ -23,6 +23,7 @@
 {% endblock %}
 
 <form method="POST" action="/registrate" enctype="multipart/form-data">
+    {{ form.csrf_token }}
 
     {{ form.title.label }} {{ form.title(size=20) }}
     

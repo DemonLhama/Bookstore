@@ -13,7 +13,7 @@ def index():
 
 @bp.route("/registrate", methods=["GET", "POST"])
 def registrate():
-    form = BookForm(csrf_enabled=False)
+    form = BookForm()
     if form.validate_on_submit():
         add_book(
             title=form.title.data,
