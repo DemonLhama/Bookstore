@@ -9,4 +9,4 @@ class BookForm(FlaskForm):
 
     author = StringField("Author", validators=[DataRequired()])
 
-    category_id = StringField("Category", validators=[DataRequired()])
+    category = StringField("Category", validators=[DataRequired()])

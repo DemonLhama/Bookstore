@@ -18,7 +18,7 @@ def registrate():
         add_book(
             title=form.title.data,
             author=form.author.data,
-            category=form.category_id.data,
+            category=form.category.data,
         )
         
         return redirect("/")
