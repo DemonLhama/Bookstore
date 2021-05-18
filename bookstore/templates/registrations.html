@@ -24,17 +24,11 @@
 </div>
 {% endblock %}
 
-{% block main %}
-<form action="{{url_for('site.registrate')}}" method="POST" enctype="multipart/form-data">
-    {{ form.csrf_token }}
+<form method="POST" action="/registrate" enctype="multipart/form-data">
 
-    {{ form.hidden_tag() }}
+    {{ form.title.label }} {{ form.title(size=20) }}
     
-    <div>{{ form.title.label }} {{ form.title(size=20) }}</div>
+    {{ form.author.label }} {{ form.author(size=20) }}
     
-    <div>{{ form.author.label }} {{ form.author(size=20) }}</div>
-    
-    <div>{{ from.category_id.label }} {{ form.category_id(size=20)}}  </div>
+    {{ form.category_id.label }} {{ form.category_id(size=20) }}
 </form>
-{% endblock main %}
-
