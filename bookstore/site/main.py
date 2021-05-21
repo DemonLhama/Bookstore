@@ -24,3 +24,8 @@ def registrate():
         return redirect("/")
 
     return render_template("registrations.html", form=form)
+
+
+@bp.route("/login", methods=["GET", "POST"])
+def login():
+    return render_template("index.html")

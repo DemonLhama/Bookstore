@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.fields.simple import SubmitField
+from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired
 
 
@@ -9,4 +8,4 @@ class BookForm(FlaskForm):
 
     author = StringField("Author", validators=[DataRequired()])
 
-    category = StringField("Category", validators=[DataRequired()])
+    category = IntegerField("Category", validators=[DataRequired()])
