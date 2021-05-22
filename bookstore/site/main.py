@@ -1,4 +1,5 @@
 from flask import render_template, Blueprint, redirect
+from bookstore.db.models import *
 from bookstore.catalog.form import BookForm
 from bookstore.catalog.controller import add_book
 
@@ -14,6 +15,7 @@ def index():
 @bp.route("/registrate", methods=["GET", "POST"])
 def registrate():
     form = BookForm()
+    form.category.choices = Category.query.all()
     if form.validate_on_submit():
         add_book(
             title=form.title.data,
@@ -29,3 +31,9 @@ def registrate():
 @bp.route("/login", methods=["GET", "POST"])
 def login():
     return render_template("index.html")
+
+
+@bp.route("/books")
+def books():
+    return render_template("books.html")
+

@@ -1,13 +1,14 @@
+from sqlalchemy.orm import relationship
 from bookstore.db import db
 
 class Category(db.Model):
     __tablename__ = "categories"
     id = db.Column("id", db.Integer, primary_key=True)
-    category = db.Column("category", db.String, unique=True)
-    books = db.relationship('Book', backref='category')
+    category = db.Column("category", db.Unicode, unique=True)
+    books = db.relationship("Book", back_populates="category_books")
 
     def __repr__(self):
-        return '<Category %r>' % self.category
+        return self.category
 
 
 
@@ -16,7 +17,8 @@ class Book(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     title = db.Column("title", db.Unicode, index=True)
     author = db.Column("author", db.Unicode, index=True)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    category = db.Column(db.Unicode, db.ForeignKey('categories.category'))
+    category_books = relationship("Category", back_populates="books")
 
     def __repr__(self):
-        return '<Book %r>' % self.title
+        return self.title

@@ -1,6 +1,9 @@
+from bookstore.db.models import Category
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, SelectField
 from wtforms.validators import DataRequired
+
+
 
 
 class BookForm(FlaskForm):
@@ -8,4 +11,4 @@ class BookForm(FlaskForm):
 
     author = StringField("Author", validators=[DataRequired()])
 
-    category = IntegerField("Category", validators=[DataRequired()])
+    category = SelectField("Category", choices=[])
