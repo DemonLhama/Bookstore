@@ -1,5 +1,8 @@
 from sqlalchemy.orm import relationship
+from flask_login import UserMixin
 from bookstore.db import db
+
+
 
 class Category(db.Model):
     __tablename__ = "categories"
@@ -22,3 +25,10 @@ class Book(db.Model):
 
     def __repr__(self):
         return self.title
+
+class User(UserMixin, db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(64), unique=True, index=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+    password_hash = db.Column(db.String(128))

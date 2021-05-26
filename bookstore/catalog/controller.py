@@ -1,3 +1,4 @@
+from re import search
 from bookstore.db.models import Book
 from bookstore.db import db
 
@@ -11,4 +12,3 @@ def add_book(title:str, author:str, category:int) -> Book:
     db.session.add(book)
     db.session.commit()
     return book
-

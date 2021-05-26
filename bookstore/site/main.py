@@ -35,5 +35,21 @@ def login():
 
 @bp.route("/books")
 def books():
-    return render_template("books.html")
+    books = Book.query.all()
 
+    return render_template("books.html", books=books)
+
+
+@bp.route("/search")
+def search():
+    form = SearchForm()
+    form.filter.choices = ['Title', 'Author', 'Category']
+    if form.validate_on_submit():
+        search_book(
+            options=form.filter.data,
+            word=form.string.data,
+                )
+
+    return render_template("search.html", form=form)
+
+        

@@ -1,3 +1,4 @@
+from wtforms import validators
 from bookstore.db.models import Category
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField
