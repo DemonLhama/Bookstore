@@ -4,3 +4,4 @@ flask-wtf
 flask-migrate
 flask-bootstrap
 flask-login
+email_validator
