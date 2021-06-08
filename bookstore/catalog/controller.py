@@ -1,10 +1,10 @@
 from re import search
-from bookstore.db.models import Book
+from bookstore.db.models import BookTable
 from bookstore.db import db
 
 
-def add_book(title:str, author:str, category:int) -> Book:
-    book = Book(
+def add_book(title:str, author:str, category:int) -> BookTable:
+    book = BookTable(
         title = title,
         author = author,
         category = category,

@@ -17,7 +17,7 @@ def index():
 @bp.route("/registrate", methods=["GET", "POST"])
 def registrate():
     form = BookForm()
-    form.category.choices = Category.query.all()
+    form.category.choices = CategoryTable.query.all()
     if form.validate_on_submit():
         add_book(
             title=form.title.data,
@@ -31,7 +31,7 @@ def registrate():
 
 @bp.route("/books")
 def books():
-    books = Book.query.all()
+    books = BookTable.query.all()
 
     return render_template("books.html", books=books)
 

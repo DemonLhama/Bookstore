@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from bookstore.db.models import Book, Category
+from bookstore.db.models import BookTable, CategoryTable
 
 args = reqparse.RequestParser()
 args.add_argument("title", type=str, required=True)
@@ -8,7 +8,7 @@ args.add_argument("category", type=str, required=True)
 
 class Books(Resource):
     def get_title(self, book_id):
-        book = Book.find_book_id(book_id)
+        book = BookTable.find_book_id(book_id)
         if book:
             return book.json()
         return {"message": "Book not found"}, 404
@@ -17,11 +17,11 @@ class Books(Resource):
     def post(self):
         data = args.parse_args()
 
-        if Book.find_book_title(data.get("title")):
+        if BookTable.find_book_title(data.get("title")):
             return {"message": "This book already exists.".format(data.get("author"))}, 400
-        book = Book(**data)
+        book = BookTable(**data)
 
-        if not Category.find_category(data.get('category')):
+        if not CategoryTable.find_category(data.get('category')):
             return {"message": "The book must be associated to a valid category"}, 400
         
         try:
@@ -35,7 +35,7 @@ class Books(Resource):
 class Book_Catalog(Resource):
 
     def get(self, book_id):
-        book = Book.find_book_id(book_id)
+        book = BookTable.find_book_id(book_id)
         if book:
             return book.json()
         return {"message": "Book not found"}, 404
@@ -43,14 +43,14 @@ class Book_Catalog(Resource):
 
     def put(self, book_id):
         data = args.parse_args()
-        book_search = Book.find_book_id(book_id)
+        book_search = BookTable.find_book_id(book_id)
 
         if book_search:
             book_search.book_update(**data)
             book_search.save_book()
             return book_search.json(), 200
 
-        book = Book(**data)
+        book = BookTable(**data)
 
         try:
             book.save_book()
@@ -61,7 +61,7 @@ class Book_Catalog(Resource):
 
 
     def delete(self, book_id):
-        book = Book.find_book_id(book_id)
+        book = BookTable.find_book_id(book_id)
         if book:
             try:
                 book.delete_book()

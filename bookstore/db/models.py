@@ -5,11 +5,11 @@ from bookstore.auth import login_manager
 
 
 
-class Category(db.Model):
+class CategoryTable(db.Model):
     __tablename__ = "categories"
     category_id = db.Column("category_id", db.Integer, primary_key=True)
     category = db.Column("category", db.Unicode, unique=True)
-    books = db.relationship("Book", back_populates="category_books")
+    books = db.relationship("BookTable", back_populates="category_books")
 
     def __repr__(self, category_id, category):
         self.category_id = category_id
@@ -25,11 +25,6 @@ class Category(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    @classmethod
-    def find_all_catg(cls):
-        category = cls.query.all()
-        return category
-
 
     @classmethod
     def find_category(cls, category):
@@ -38,16 +33,22 @@ class Category(db.Model):
             return category
         return None
 
+    def update_category(self, category):
+        self.category = category
+
+    def delete_catg(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 
-class Book(db.Model):
+class BookTable(db.Model):
     __tablename__ = "books"
     book_id = db.Column("book_id", db.Integer, primary_key=True)
     title = db.Column("title", db.Unicode, index=True)
     author = db.Column("author", db.Unicode, index=True)
     category = db.Column(db.Unicode, db.ForeignKey('categories.category'))
-    category_books = relationship("Category", back_populates="books")
+    category_books = relationship("CategoryTable", back_populates="books")
     
     def __repr__(self, book_id, title, author, category):
         self.book_id = book_id
