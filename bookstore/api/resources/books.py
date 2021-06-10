@@ -1,5 +1,6 @@
 import os.path
 from bookstore.api.resources.filters import *
+from flask_jwt_extended.view_decorators import jwt_required
 import sqlite3
 from flask_restful import Resource, reqparse
 from bookstore.db.models import BookTable, CategoryTable
@@ -10,7 +11,7 @@ args.add_argument("author", type=str, required=True)
 args.add_argument("category", type=str, required=True)
 
 class Books(Resource):
-
+    @jwt_required()
     def post(self):
         data = args.parse_args()
 
@@ -37,7 +38,7 @@ class Book_Catalog(Resource):
             return book.json()
         return {"message": "Book not found"}, 404
 
-
+    @jwt_required()
     def put(self, book_id):
         data = args.parse_args()
         book_search = BookTable.find_book_id(book_id)
@@ -56,7 +57,7 @@ class Book_Catalog(Resource):
 
         return book.json(), 201
 
-
+    @jwt_required()
     def delete(self, book_id):
         book = BookTable.find_book_id(book_id)
         if book:
