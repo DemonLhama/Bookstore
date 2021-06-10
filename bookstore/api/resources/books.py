@@ -89,15 +89,24 @@ class Book_Search(Resource):
         valid_data = {key:data[key] for key in data if data[key] is not None}
         params = search_normalize(**valid_data)
         tupla = tuple([params[keys] for keys in params])
-        
-        if not params.get("category") and not params.get("title"):
-            results = cursor.execute(author_consult, tupla)
 
-        if not params.get("author") and not params.get("title"):
+
+        
+        if params.get("title") or params.get("author"):
+        # In this query use %something% to apply the search, example:
+        # booksearch?title=%office% that way you can search for only a part of the title
+        # making more simple to search for something.
+            try:
+                results = cursor.execute(author_title_consult, tupla)
+            except:
+                if not params.get("title"):
+                    results = cursor.execute(author_consult, tupla)
+                else:
+                    results = cursor.execute(title_consult, tupla)
+
+        if params.get("category"):
             results = cursor.execute(catg_consult, tupla)
 
-        if not params.get("author") and not params.get("category"):
-            results = cursor.execute(title_consult, tupla)
 
         books = []
         for line in results:

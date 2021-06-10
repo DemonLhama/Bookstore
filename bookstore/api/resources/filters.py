@@ -46,3 +46,5 @@ title_consult = "SELECT * FROM books WHERE (title LIKE ?)\
 author_consult = "SELECT * FROM books WHERE (author LIKE ?) \
                     LIMIT ?  OFFSET ?"
 
+author_title_consult = "select * from books where (author like ?)\
+                            (title like ? limit ? offset ?"
