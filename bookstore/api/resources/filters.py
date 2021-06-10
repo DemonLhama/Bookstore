@@ -5,7 +5,16 @@ def search_normalize(title = None,
                     category = None,
                     limit = 30,
                     offset = 0, **data):
-    if title:
+    if title and author:
+        return {
+            "title": title,
+            "author": author,
+            "limit": limit,
+            "offset": offset
+        }
+    
+    
+    elif title:
         return {
             "title": title,
             "limit": limit,
@@ -19,15 +28,9 @@ def search_normalize(title = None,
             "offset": offset
             }
 
-    elif category:
-        return {
-            "category": category,
-            "limit": limit,
-            "offset": offset
-            }
-
     else:
         return {
+            "category": category,
             "limit": limit,
             "offset": offset
             }
@@ -46,5 +49,5 @@ title_consult = "SELECT * FROM books WHERE (title LIKE ?)\
 author_consult = "SELECT * FROM books WHERE (author LIKE ?) \
                     LIMIT ?  OFFSET ?"
 
-author_title_consult = "select * from books where (author like ?)\
-                            (title like ? limit ? offset ?"
+author_title_consult = "SELECT * FROM books WHERE (title LIKE ?)\
+                           AND (author LIKE ?) LIMIT ? OFFSET ?"

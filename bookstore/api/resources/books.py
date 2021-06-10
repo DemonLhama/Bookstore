@@ -98,13 +98,14 @@ class Book_Search(Resource):
         # making more simple to search for something.
             try:
                 results = cursor.execute(author_title_consult, tupla)
+        
             except:
                 if not params.get("title"):
                     results = cursor.execute(author_consult, tupla)
                 else:
                     results = cursor.execute(title_consult, tupla)
 
-        if params.get("category"):
+        if not params.get("author") and not params.get("title"):
             results = cursor.execute(catg_consult, tupla)
 
 
