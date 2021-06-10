@@ -87,9 +87,17 @@ class Book_Search(Resource):
         params = search_normalize(**valid_data)
 
         
+        if not params.get("category") and not params.get("title"):
+            tupla = tuple([params[keys] for keys in params])
+            results = cursor.execute(author_consult, tupla)
 
-        tupla = tuple([params[keys] for keys in params])
-        results = cursor.execute(author_consult, tupla)
+        if not params.get("author") and not params.get("title"):
+            tupla = tuple([params[keys] for keys in params])
+            results = cursor.execute(catg_consult, tupla)
+
+        if not params.get("author") and not params.get("category"):
+            tupla = tuple([params[keys] for keys in params])
+            results = cursor.execute(title_consult, tupla)
 
         books = []
         for line in results:
