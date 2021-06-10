@@ -78,6 +78,8 @@ search_params.add_argument("offset", type=float)
 
 class Book_Search(Resource):
 
+    #todo Arrange the queries in a more robust way
+
     def get(self):
 
         connection = sqlite3.connect("bookstore/bookstore.db")
@@ -85,18 +87,15 @@ class Book_Search(Resource):
         data = search_params.parse_args()
         valid_data = {key:data[key] for key in data if data[key] is not None}
         params = search_normalize(**valid_data)
-
+        tupla = tuple([params[keys] for keys in params])
         
         if not params.get("category") and not params.get("title"):
-            tupla = tuple([params[keys] for keys in params])
             results = cursor.execute(author_consult, tupla)
 
         if not params.get("author") and not params.get("title"):
-            tupla = tuple([params[keys] for keys in params])
             results = cursor.execute(catg_consult, tupla)
 
         if not params.get("author") and not params.get("category"):
-            tupla = tuple([params[keys] for keys in params])
             results = cursor.execute(title_consult, tupla)
 
         books = []

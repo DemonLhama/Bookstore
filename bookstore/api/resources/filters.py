@@ -33,16 +33,16 @@ def search_normalize(title = None,
             }
 
 
-catg_consult = "SELECT * FROM books WHERE category = ? \
+catg_consult = "SELECT * FROM books WHERE (category = ?) \
                     LIMIT ?  OFFSET ?"
 
 
 
-title_consult = "SELECT * FROM books WHERE title = ?\
+title_consult = "SELECT * FROM books WHERE (title LIKE ?)\
                     LIMIT ?  OFFSET ?"
 
 
 
-author_consult = "SELECT * FROM books WHERE author = ? \
+author_consult = "SELECT * FROM books WHERE (author LIKE ?) \
                     LIMIT ?  OFFSET ?"
 
